@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cat data/twitter_example.log | ruby lib/mapper.rb | sort > log/result.log

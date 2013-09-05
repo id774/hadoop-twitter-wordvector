@@ -1,0 +1,117 @@
+/* README.ja */
+
+名前
+ hadoop--twitter-wordvector - Hadoop による Twitter 解析の例
+
+書式
+ bin/run
+
+説明
+ このソフトウェアは Hadoop を利用してデータの解析をおこなう例である。
+ Ruby と Hadoop Streaming を利用する。
+
+詳細
+ Fluentd で収集され JSON 形式となった Twitter のデータを読み込む。
+ 特徴語彙を抽出し生成したベクトルを JSON に付与して出力する。
+
+
+[環境設定]
+
+1) 前提条件
+ruby, rspec, hadoop, mecab のインストールが完了していること。
+
+2) テスト実行
+$ cd ~/hadoop-twitter-mapreduce
+$ rake spec
+
+
+[実行方法]
+
+まずは Hadoop を使わずに実行する。
+
+$ script/simple
+
+次に Hadoop Streaming 経由で実行する。
+
+$ bin/run
+
+log/development.log
+log/result.log
+内容を確認する。
+
+
+[前提条件]
+
+Twitter の発言を fluentd 経由で Hadoop に蓄積する。
+
+
+[詳細設定]
+
+ config/env.conf では実行環境に即した様々な設定をおこなうことができる。
+これにより実行環境の差異を吸収することができる。
+
+# インストールされた Hadoop のルートディレクトリ
+HADOOP_ROOT=/usr/local/hadoop
+
+# Streaming 用の .jar ファイルの場所
+HADOOP_JAR=$HADOOP_ROOT/contrib/streaming/hadoop-streaming-0.20.205.0.jar
+
+# Hadoop の実行用バイナリのパス
+HADOOP=$HADOOP_HOME/bin/hadoop
+
+# ログの出力先
+JOBLOG=$SCRIPT_HOME/log/production.log
+
+このファイルは単にシェルスクリプトとして呼ばれるため、事前処理もそのまま記述できる。
+詳細はファイルの内容を参照のこと。
+
+
+[処理概要]
+
+本ソフトウェアのファイル体系は以下の通りである。
+
+.
+|
++- bin
+|   |
+|   +- run
+|        実行ファイル本体
+|
++- config
+|   |
+|   +- env.conf
+|        設定ファイル
+|
++- doc
+|   |
+|   +- README
+|        本ドキュメント
+|
++- lib 処理に必要な主要なファイルが格納される
+|   |
+|   +- mapper.rb
+|   |    Mapper
+|   +- reducer.rb
+|        Reducer
+|
++- data サンプルの入力データ例となる Twitter の JSON 形式データ (Fluentd を想定)
+|
++- log ログファイルが格納される
+|   |
+|   +- production.log
+|   |    処理経過が出力されるログファイル
+|   +- result.log
+|        集計結果が格納されるログファイル
+|
++- script シェルスクリプトが格納される
+|   |
+|   +- run
+|   |    Hadoop Streaming に処理を受け渡すスクリプト本体
+|   +- simple
+|        Hadoop を経由せず UNIX パイプを利用する場合のスクリプト
+|
++- spec RSpec によるテストコードが格納される
+|
++- vendor 外部ライブラリ
+
+
