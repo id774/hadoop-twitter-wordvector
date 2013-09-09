@@ -1,7 +1,7 @@
 /* README.ja */
 
 名前
- hadoop--twitter-wordvector - Hadoop による Twitter 解析の例
+ hadoop-twitter-wordvector - Hadoop による Twitter 解析の例
 
 書式
  bin/run
@@ -21,7 +21,7 @@
 ruby, rspec, hadoop, mecab のインストールが完了していること。
 
 2) テスト実行
-$ cd ~/hadoop-twitter-mapreduce
+$ cd ~/hadoop-twitter-wordvector
 $ rake spec
 
 
