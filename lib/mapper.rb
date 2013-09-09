@@ -15,6 +15,7 @@ class Mapper
 
   def map(stdin)
     stdin.each_line {|line|
+      uid = screen_name = id_str = ""
       word_vector = Array.new
       id = Time.now.iso8601
       tag = "twitter.statuses"
@@ -22,6 +23,9 @@ class Mapper
       json = line.force_encoding("utf-8").scan(/\{.*\}/).join
       hash = JSON.parse(json)
       hash.each {|k,v|
+        uid = v.to_s if k == "uid"
+        screen_name = v if k == "screen_name"
+        id_str = v.to_s if k == "id_str"
         if k == "text"
           pickup_nouns(v).each {|word|
             if word =~ /[亜-腕]/
@@ -34,6 +38,11 @@ class Mapper
         end
       }
       hash["word_vector"] = word_vector.join(",")
+      if id_str == ""
+        id = screen_name + "," + uid 
+      else
+        id = screen_name + "," + uid + "," + id_str
+      end
       mapper_output(id,tag,hash)
     }
   end
