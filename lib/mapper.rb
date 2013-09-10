@@ -18,6 +18,7 @@ class Mapper
       uid = screen_name = id_str = ""
       word_vector = Array.new
       tag = "twitter.statuses"
+      timestamp = Time.now.instance_eval { '%s.%03d' % [strftime('%Y%m%d%H%M%S'), (usec / 1000.0).round] }
       # datetime, tag, json = line.force_encoding("utf-8").strip.split("\t")
       json = line.force_encoding("utf-8").scan(/\{.*\}/).join
       hash = JSON.parse(json)
@@ -36,7 +37,7 @@ class Mapper
         end
       }
       hash["word_vector"] = word_vector.join(",")
-      id = screen_name + "," + uid 
+      id = timestamp + "," + screen_name + "," + uid 
       mapper_output(id,tag,hash)
     }
   end
