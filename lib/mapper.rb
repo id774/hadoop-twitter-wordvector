@@ -25,6 +25,7 @@ class Mapper
       hash.each {|k,v|
         uid = v.to_s if k == "uid"
         screen_name = v if k == "screen_name"
+        id_str = v.to_s if k == "id_str"
         if k == "text"
           pickup_nouns(v).each {|word|
             if word =~ /[亜-腕]/
@@ -36,8 +37,9 @@ class Mapper
           }
         end
       }
+      hash["link"] = "http://twitter.com/" + screen_name + "/status/" + id_str unless id_str.empty?
       hash["word_vector"] = word_vector.join(",")
-      id = timestamp + "," + screen_name + "," + uid 
+      id = timestamp + "," + screen_name + "," + uid
       mapper_output(id,tag,hash)
     }
   end
