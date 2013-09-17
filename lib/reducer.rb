@@ -4,7 +4,7 @@
 $:.unshift File.join(File.dirname(__FILE__))
 
 class Reducer
-  def self.reduce(stdin)
+  def reduce(stdin)
     stdin.each_line {|line|
       puts "#{line}"
     }
@@ -12,5 +12,6 @@ class Reducer
 end
 
 if __FILE__ == $0
-  Reducer.reduce($stdin)
+  reducer = Reducer.new
+  reducer.reduce($stdin)
 end
