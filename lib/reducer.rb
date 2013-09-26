@@ -6,7 +6,7 @@ $:.unshift File.join(File.dirname(__FILE__))
 class Reducer
   def reduce(stdin)
     stdin.each_line {|line|
-      puts "#{line}"
+      puts "#{line.force_encoding("utf-8")}"
     }
   end
 end

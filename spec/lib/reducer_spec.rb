@@ -14,10 +14,10 @@ end
 describe Reducer do
   it 'should created word_vector in json objects' do
     expected = []
-    expected << '曲,好き,RT,人,名前,説明'
-    expected << 'RT,mnishi,全体,人間,眼球,寿命,年,電機,業界,不可避,問題,医師,研究,者,国際,会議,開催,Tech,On,http,t,co,OjEgHkyRJg'
+    expected << '曲,好き,人,名前,説明'
+    expected << 'mnishi,全体,人間,眼球,寿命,年,電機,業界,不可避,問題,医師,研究,者,国際,会議,開催,Tech,http,OjEgHkyRJg'
     expected << '水,勢,毎日'
-    expected << 'http,t,co,Jyhjq,mxEt,東京,進撃,巨人,夏休み,月,日,月,月,夏,年,宿題,進撃,劣化,月'
+    expected << 'http,Jyhjq,mxEt,東京,進撃,巨人,夏休み,月,日,月,月,夏,年,宿題,進撃,劣化,月'
     expected << '何'
     expected << '番,塩'
     expected << '以外,水族館'
